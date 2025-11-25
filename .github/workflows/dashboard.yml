@@ -8,7 +8,9 @@ on:
 
   # Allow manual workflow trigger
   workflow_dispatch:
-
+permissions:
+  contents: read
+  id-token: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,7 +33,7 @@ jobs:
 
       - name: 📁 Create site-deploy directory
         run: mkdir -p ./site-deploy/.next
-        
+
       - name: 📂 Copy standalone into the root
         run: cp -R ./src/dashboard/.next/standalone ./site-deploy
 
