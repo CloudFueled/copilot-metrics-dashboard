@@ -42,16 +42,20 @@ jobs:
       - name: 📂 Copy Public folder
         run: cp -R ./src/dashboard/public ./site-deploy/public
 
+      - name: 🔍 Diagnostics
+        run: |
+          ls -la ./site-deploy
+
       - name: 📦 Package Next application
         run: |
           cd ./site-deploy
-          zip Nextjs-site.zip ./* .next -qr
+          zip -r Nextjs-site.zip .
 
       - name: 🔍 Diagnostics
         run: |
-          ls ./src/dashboard
-          ls ./src/dashboard/.next
-          ls ./site-deploy
+          ls -la ./site-deploy
+          ls -la ./site-deploy/.next || echo ".next not found"
+          ls -la ./site-deploy/node_modules || echo "node_modules not found"
 
       - name: ⬆️ Publish Next Application artifact
         uses: actions/upload-artifact@v4
