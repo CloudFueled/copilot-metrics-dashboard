@@ -1,3 +1,4 @@
 .azure/
 .idea/
 .vscode/
+/src/dashboard/.env
