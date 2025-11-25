@@ -22,24 +22,18 @@ jobs:
         with:
           node-version: "20.x"
 
-      - name: 📦 Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - name: ⚙️ pnpm install and build
+      - name: ⚙️ npm install and build
         run: |
           cd ./src/dashboard
-          pnpm install
-          pnpm run build
+          npm install
+          npm run build --if-present
           cd ..
-          ls -R ./dashboard -al
 
       - name: 📁 Create site-deploy directory
         run: mkdir -p ./site-deploy/.next
-
+        
       - name: 📂 Copy standalone into the root
-        run: cp -R ./src/dashboard/.next/standalone/. ./site-deploy
+        run: cp -R ./src/dashboard/.next/standalone ./site-deploy
 
       - name: 📂 Copy static into the .next folder
         run: cp -R ./src/dashboard/.next/static ./site-deploy/.next/static
@@ -47,20 +41,16 @@ jobs:
       - name: 📂 Copy Public folder
         run: cp -R ./src/dashboard/public ./site-deploy/public
 
-      - name: 🔍 Diagnostics
-        run: |
-          ls -la ./site-deploy
-
       - name: 📦 Package Next application
         run: |
           cd ./site-deploy
-          zip -r Nextjs-site.zip .
+          zip Nextjs-site.zip ./* .next -qr
 
       - name: 🔍 Diagnostics
         run: |
-          ls -la ./site-deploy
-          ls -la ./site-deploy/.next || echo ".next not found"
-          ls -la ./site-deploy/node_modules || echo "node_modules not found"
+          ls ./src/dashboard
+          ls ./src/dashboard/.next
+          ls ./site-deploy
 
       - name: ⬆️ Publish Next Application artifact
         uses: actions/upload-artifact@v4
@@ -70,9 +60,6 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
     needs: build
     environment:
       name: prd
