@@ -31,7 +31,7 @@ jobs:
           ls -R ./dashboard -al
 
       - name: 📁 Create site-deploy directory
-        run: mkdir -p ./site-deploy
+        run: mkdir -p ./site-deploy/.next
 
       # - name: 📂 Copy standalone into the root
       #   run: cp -R ./src/dashboard/.next/standalone ./site-deploy
