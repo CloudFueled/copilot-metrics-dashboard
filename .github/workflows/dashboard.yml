@@ -32,13 +32,13 @@ jobs:
           ls ./dashboard
 
       - name: 📂 Copy standalone into the root
-        run: cp -R ./dashboard/.next/standalone ./site-deploy
+        run: cp -R ./src/dashboard/.next/standalone ./site-deploy
 
       - name: 📂 Copy static into the .next folder
-        run: cp -R ./dashboard/.next/static ./site-deploy/.next/static
+        run: cp -R ./src/dashboard/.next/static ./site-deploy/.next/static
 
       - name: 📂 Copy Public folder
-        run: cp -R ./dashboard/public ./site-deploy/public
+        run: cp -R ./src/dashboard/public ./site-deploy/public
 
       - name: 📦 Package Next application
         run: |
