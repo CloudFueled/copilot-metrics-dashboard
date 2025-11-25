@@ -33,8 +33,8 @@ jobs:
       - name: 📁 Create site-deploy directory
         run: mkdir -p ./site-deploy/.next
 
-      # - name: 📂 Copy standalone into the root
-      #   run: cp -R ./src/dashboard/.next/standalone ./site-deploy
+      - name: 📂 Copy standalone into the root
+        run: cp -R ./src/dashboard/.next/standalone ./site-deploy
 
       - name: 📂 Copy static into the .next folder
         run: cp -R ./src/dashboard/.next/static ./site-deploy/.next/static
